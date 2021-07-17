@@ -1,0 +1,4 @@
+name: ZombieFloor
+version: @version@
+main: com.github.kamunyan.zombiefloor.ZombieFloor
+api-version: 1.16
