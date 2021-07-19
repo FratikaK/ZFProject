@@ -14,6 +14,8 @@ public class MatchManager {
     private final HashMap<UUID, ZFPlayer> gamePlayers;
     //マッチプレイヤーのリスト
     private final ArrayList<ZFPlayer> matchPlayers;
+    //ゲーム中かのFlag
+    private boolean matching = false;
 
     protected MatchManager() {
         gamePlayers = new HashMap<>();
@@ -50,5 +52,13 @@ public class MatchManager {
 
     public ArrayList<ZFPlayer> getMatchPlayers() {
         return matchPlayers;
+    }
+
+    public boolean isMatching() {
+        return matching;
+    }
+
+    public void setMatching(boolean matching) {
+        this.matching = matching;
     }
 }
