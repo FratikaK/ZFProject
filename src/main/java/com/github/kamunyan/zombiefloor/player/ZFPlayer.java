@@ -3,6 +3,9 @@ package com.github.kamunyan.zombiefloor.player;
 import com.github.kamunyan.zombiefloor.ZombieFloor;
 import com.github.kamunyan.zombiefloor.player.runnable.StaminaDecreaseRunnable;
 import com.github.kamunyan.zombiefloor.player.runnable.StaminaRecoveryRunnable;
+import com.github.kamunyan.zombiefloor.weapons.primary.AK12;
+import com.github.kamunyan.zombiefloor.weapons.primary.PrimaryWeapon;
+import com.github.kamunyan.zombiefloor.weapons.secondary.SecondaryWeapon;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
@@ -24,10 +27,18 @@ public class ZFPlayer {
     private int staminaRecoverySpeed = 12;
     //スタミナが回復し始めるまでの遅延時間
     private int delayStaminaRestoreTime = 60;
+    //プレイヤーが所持するプライマリ武器
+    private PrimaryWeapon primaryWeapon;
+    //プレイヤーが所持するセカンダリ武器
+    private SecondaryWeapon secondaryWeapon;
 
     public ZFPlayer(UUID uuid) {
         player = plugin.getServer().getPlayer(uuid);
         this.uuid = uuid;
+
+        assert player != null;
+        var inventory = player.getInventory();
+
     }
 
     public void runStaminaDecreaseRunnable() {
@@ -48,7 +59,7 @@ public class ZFPlayer {
     public String toString() {
         return "ZFPlayer{" +
                 ", player=" + player +
-                ", uuid=" + uuid +
+                ", uuid=" + uuid.toString() +
                 ", matchPlayer=" + matchPlayer +
                 '}';
     }

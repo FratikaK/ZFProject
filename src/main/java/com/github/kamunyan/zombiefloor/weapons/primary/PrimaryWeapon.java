@@ -1,37 +1,20 @@
 package com.github.kamunyan.zombiefloor.weapons.primary;
 
+import com.github.kamunyan.zombiefloor.weapons.Weapon;
 import org.bukkit.Material;
 
 /**
- * プライマリ武器を表現するクラス
+ * プライマリ武器を表現するinterface
  */
-interface PrimaryWeapon {
-
-    String getWeaponTitle();
+public interface PrimaryWeapon extends Weapon {
 
     /**
-     * 武器のマテリアルのタイプを取得する
-     *
-     * @return アイテムのマテリアル
+     * 連射可能武器かのbool値を返す
      */
-    Material getMaterialType();
+    Boolean isFullyAutomatic();
 
     /**
-     * 連射可能武器かのboolean
-     *
-     * @return 連射武器である
+     * バースト射撃可能かのbool値を返す
      */
-    boolean isFullyAutomatic();
-
-    /**
-     * 武器の基礎ダメージを取得する
-     *
-     * @return 基礎ダメージ
-     */
-    double getDamage();
-
-    /**
-     * 攻撃が命中した時に特別な効果を発生させる
-     */
-    void setEffects();
+    Boolean isBurstShot();
 }
