@@ -3,7 +3,7 @@ package com.github.kamunyan.zombiefloor.player;
 import com.github.kamunyan.zombiefloor.ZombieFloor;
 import com.github.kamunyan.zombiefloor.player.runnable.StaminaDecreaseRunnable;
 import com.github.kamunyan.zombiefloor.player.runnable.StaminaRecoveryRunnable;
-import com.github.kamunyan.zombiefloor.weapons.primary.AK12;
+import com.github.kamunyan.zombiefloor.utils.WeaponsUtils;
 import com.github.kamunyan.zombiefloor.weapons.primary.PrimaryWeapon;
 import com.github.kamunyan.zombiefloor.weapons.secondary.SecondaryWeapon;
 import org.bukkit.entity.Player;
@@ -35,10 +35,9 @@ public class ZFPlayer {
     public ZFPlayer(UUID uuid) {
         player = plugin.getServer().getPlayer(uuid);
         this.uuid = uuid;
-
         assert player != null;
-        var inventory = player.getInventory();
-
+        primaryWeapon = WeaponsUtils.getPrimaryWeapon(player);
+        WeaponsUtils.sendPrimaryWeapon(this);
     }
 
     public void runStaminaDecreaseRunnable() {
@@ -61,6 +60,7 @@ public class ZFPlayer {
                 ", player=" + player +
                 ", uuid=" + uuid.toString() +
                 ", matchPlayer=" + matchPlayer +
+                ", PrimaryWeapon=" + primaryWeapon.getWeaponTitle() +
                 '}';
     }
 
