@@ -1,6 +1,9 @@
 package com.github.kamunyan.zombiefloor.listeners;
 
 import com.github.kamunyan.zombiefloor.ZombieFloor;
+import com.github.kamunyan.zombiefloor.player.runnable.StaminaDecreaseRunnable;
+import com.github.kamunyan.zombiefloor.player.runnable.StaminaRecoveryRunnable;
+import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
@@ -40,11 +43,20 @@ public class PlayerControlListener implements Listener {
      */
     @EventHandler
     public void onToggleSplint(PlayerToggleSprintEvent e) {
-        var player = e.getPlayer();
+        if (e.getPlayer().getGameMode() == GameMode.CREATIVE) return;
+        var zfPlayer = plugin.getManager().getZFPlayer(e.getPlayer());
         if (e.isSprinting()) {
-            plugin.getManager().getZFPlayer(player).runStaminaDecreaseRunnable();
+            new StaminaDecreaseRunnable(e.getPlayer()).runTaskTimerAsynchronously(
+                    plugin,
+                    0,
+                    zfPlayer.getStaminaDecreaseSpeed()
+            );
         } else {
-            plugin.getManager().getZFPlayer(player).runStaminaRecoveryRunnable();
+            new StaminaRecoveryRunnable(e.getPlayer()).runTaskTimerAsynchronously(
+                    plugin,
+                    zfPlayer.getDelayStaminaRestoreTime(),
+                    zfPlayer.getStaminaRecoverySpeed()
+            );
         }
     }
 
