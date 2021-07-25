@@ -1,5 +1,6 @@
 package com.github.kamunyan.zombiefloor;
 
+import com.github.kamunyan.zombiefloor.listeners.EnemyControlListener;
 import com.github.kamunyan.zombiefloor.listeners.JoinQuitListener;
 import com.github.kamunyan.zombiefloor.listeners.PlayerControlListener;
 import org.bukkit.event.Listener;
@@ -14,6 +15,7 @@ public final class ZombieFloor extends JavaPlugin {
     public void onEnable() {
         instance = this;
 
+        registerEvents(new EnemyControlListener());
         registerEvents(new JoinQuitListener());
         registerEvents(new PlayerControlListener());
     }
