@@ -1,6 +1,8 @@
 package com.github.kamunyan.zombiefloor.utils;
 
 import com.github.kamunyan.zombiefloor.player.ZFPlayer;
+import com.github.kamunyan.zombiefloor.weapons.grenade.FlagGrenade;
+import com.github.kamunyan.zombiefloor.weapons.grenade.Grenade;
 import com.github.kamunyan.zombiefloor.weapons.primary.AK12;
 import com.github.kamunyan.zombiefloor.weapons.primary.PrimaryWeapon;
 import org.bukkit.Material;
@@ -16,6 +18,12 @@ public class WeaponsUtils {
     private final static HashMap<Material, PrimaryWeapon> primaryMap = new HashMap<>() {
         {
             put(Material.WOODEN_HOE, new AK12());
+        }
+    };
+
+    private final static HashMap<Material, Grenade> grenadeMap = new HashMap<>(){
+        {
+            put(Material.FIREWORK_STAR, new FlagGrenade());
         }
     };
 
@@ -45,5 +53,10 @@ public class WeaponsUtils {
     public synchronized static void sendPrimaryWeapon(ZFPlayer target) {
         var inventory = target.getPlayer().getInventory();
         inventory.setItem(0, getPrimaryWeapon(target.getPlayer()).getWeaponItem());
+    }
+
+    public static void sendGrenade(ZFPlayer target,int quantity){
+        var inventory = target.getPlayer().getInventory();
+        inventory.setItem(2, target.getGrenade().getWeaponItem().add(quantity));
     }
 }

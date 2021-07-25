@@ -17,4 +17,11 @@ public interface PrimaryWeapon extends Weapon {
      * バースト射撃可能かのbool値を返す
      */
     Boolean isBurstShot();
+
+    /**
+     * ヘッドショットした時の追加のダメージを返す
+     *
+     * @return HeadShotダメージ
+     */
+    Double getHeadShotDamage();
 }

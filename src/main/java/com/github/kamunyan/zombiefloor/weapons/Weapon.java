@@ -38,13 +38,6 @@ public interface Weapon {
     Double getDamage();
 
     /**
-     * ヘッドショットした時の追加のダメージを返す
-     *
-     * @return HeadShotダメージ
-     */
-    Double getHeadShotDamage();
-
-    /**
      * 武器で使用されるItemStackを返す
      *
      * @return ItemStack

@@ -1,9 +1,9 @@
 package com.github.kamunyan.zombiefloor.player;
 
 import com.github.kamunyan.zombiefloor.ZombieFloor;
-import com.github.kamunyan.zombiefloor.player.runnable.StaminaDecreaseRunnable;
-import com.github.kamunyan.zombiefloor.player.runnable.StaminaRecoveryRunnable;
 import com.github.kamunyan.zombiefloor.utils.WeaponsUtils;
+import com.github.kamunyan.zombiefloor.weapons.grenade.FlagGrenade;
+import com.github.kamunyan.zombiefloor.weapons.grenade.Grenade;
 import com.github.kamunyan.zombiefloor.weapons.primary.PrimaryWeapon;
 import com.github.kamunyan.zombiefloor.weapons.secondary.SecondaryWeapon;
 import org.bukkit.entity.Player;
@@ -31,6 +31,8 @@ public class ZFPlayer {
     private PrimaryWeapon primaryWeapon;
     //プレイヤーが所持するセカンダリ武器
     private SecondaryWeapon secondaryWeapon;
+    //プレイヤーが所持するグレネード
+    private Grenade grenade = new FlagGrenade();
 
     public ZFPlayer(UUID uuid) {
         player = plugin.getServer().getPlayer(uuid);
@@ -38,20 +40,7 @@ public class ZFPlayer {
         assert player != null;
         primaryWeapon = WeaponsUtils.getPrimaryWeapon(player);
         WeaponsUtils.sendPrimaryWeapon(this);
-    }
-
-    public void runStaminaDecreaseRunnable() {
-        new StaminaDecreaseRunnable(player).runTaskTimerAsynchronously(
-                plugin,
-                0,
-                staminaDecreaseSpeed);
-    }
-
-    public void runStaminaRecoveryRunnable() {
-        new StaminaRecoveryRunnable(player).runTaskTimerAsynchronously(
-                plugin,
-                delayStaminaRestoreTime,
-                staminaRecoverySpeed);
+        WeaponsUtils.sendGrenade(this,2);
     }
 
     @Override
@@ -80,15 +69,35 @@ public class ZFPlayer {
         this.matchPlayer = matchPlayer;
     }
 
+    public int getStaminaDecreaseSpeed() {
+        return staminaDecreaseSpeed;
+    }
+
     public void setStaminaDecreaseSpeed(int staminaDecreaseSpeed) {
         this.staminaDecreaseSpeed = staminaDecreaseSpeed;
+    }
+
+    public int getStaminaRecoverySpeed() {
+        return staminaRecoverySpeed;
     }
 
     public void setStaminaRecoverySpeed(int staminaRecoverySpeed) {
         this.staminaRecoverySpeed = staminaRecoverySpeed;
     }
 
+    public int getDelayStaminaRestoreTime() {
+        return delayStaminaRestoreTime;
+    }
+
     public void setDelayStaminaRestoreTime(int delayStaminaRestoreTime) {
         this.delayStaminaRestoreTime = delayStaminaRestoreTime;
+    }
+
+    public PrimaryWeapon getPrimaryWeapon() {
+        return primaryWeapon;
+    }
+
+    public Grenade getGrenade() {
+        return grenade;
     }
 }
